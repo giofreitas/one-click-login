@@ -73,7 +73,7 @@ class OneClickLogin {
 								<input type="hidden" name="auth[server]" value="<?php echo $host; ?>">
 								<input type="hidden" name="auth[username]" value="<?php echo h($server["username"]); ?>">
 								<input type="hidden" name="auth[password]" value="<?php echo h($server["pass"]); ?>">
-								<input type='hidden' name="auth[db]" value="<?php echo h($server["database"]); ?>"/>
+								<input type='hidden' name="auth[db]" value="<?php echo h($database); ?>"/>
 								<input type='hidden' name="auth[permanent]" value="1"/>
 								<input type="submit" value="<?php echo lang('Enter'); ?>">
 							</form>

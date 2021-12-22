@@ -9,18 +9,16 @@
  */
 class OneClickLogin {
 	/** @access protected */
-	var $servers, $driver;
+	var $servers;
 	
 	/** 
 	 *
 	 * Set supported servers
 	 * @param array $servers
-	 * @param string $driver
 	 */
-	function __construct($servers, $driver = "server") {
+	function __construct($servers) {
 
 		$this->servers = $servers;
-		$this->driver = $driver;
 	}
 
 	function login($login, $password) {
@@ -47,6 +45,7 @@ class OneClickLogin {
 		<table>
 			<tr>
 				<th><?php echo lang('Server') ?></th>
+				<th><?php echo lang('Driver') ?></th>
 				<th><?php echo lang('User') ?></th>
 				<th><?php echo lang('Database') ?></th>
 			</tr>
@@ -54,6 +53,7 @@ class OneClickLogin {
 			<?php
 			foreach($this->servers as $host => $server):
 			
+				$driver = isset($server['driver']) ? $server['driver'] : "server";
 			
 				$databases = isset($server['databases']) ? $server['databases'] : "";
 				if (!is_array($databases))
@@ -64,12 +64,13 @@ class OneClickLogin {
 					<tr>
 						<?php if( $i === 0): ?>
 							<td style="vertical-align:middle" rowspan="<?php echo count($databases) ?>"><?php echo isset($server['label']) ? "{$server['label']} ($host)" : $host; ?></td>
+							<td style="vertical-align:middle" rowspan="<?php echo count($databases) ?>"><?php echo $driver ?></td>
 							<td style="vertical-align:middle" rowspan="<?php echo count($databases) ?>"><?php echo $server['username'] ?></td>
 						<?php endif; ?>
 						<td style="vertical-align:middle"><?php echo $databases[$database] ?></td>	
 						<td>
 							<form action="" method="post">
-								<input type="hidden" name="auth[driver]" value="<?php echo $this->driver; ?>">
+								<input type="hidden" name="auth[driver]" value="<?php echo h($driver); ?>">
 								<input type="hidden" name="auth[server]" value="<?php echo $host; ?>">
 								<input type="hidden" name="auth[username]" value="<?php echo h($server["username"]); ?>">
 								<input type="hidden" name="auth[password]" value="<?php echo h($server["pass"]); ?>">

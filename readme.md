@@ -12,6 +12,7 @@ return [
         'username'  => '{username}',
         'pass'      => '{password}',
         // Optional parameters
+        'driver'    => 'pgsql',
         'label'     => 'MySQL',
         'databases' => array(
             '{database_1_name}' => 'Database 1',
